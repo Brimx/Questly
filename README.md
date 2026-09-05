@@ -13,7 +13,11 @@ Plataforma de seguimiento de hábitos, tareas y objetivos personales o grupales 
 
 **Institución:** Universidad Popular del Cesar · Facultad de Ingenierías y Tecnológicas  
 **Asignatura:** Base de Datos I · Semestre 2026  
-**Motor:** PostgreSQL 16+
+**Motor:** PostgreSQL 16+  
+**Repositorio:** https://github.com/Brimx/Questly  
+**Entrega actual:** tag `entrega-1`
+
+> Nota: el PDF original se titula *Goshi*; *Questly* es el nombre actual del mismo sistema.
 
 ## Estructura del repositorio
 
@@ -23,8 +27,13 @@ questly/
 │   ├── planteamiento.md           # Descripción del dominio y problema
 │   ├── requisitos-y-supuestos.md  # Requisitos funcionales e interrogatorio
 │   ├── diccionario-de-datos.md    # Diccionario inicial tabla por tabla
-│   └── esquema-relacional.md      # Esquema relacional con políticas de FK
-├── diagramas/                     # Diagramas EER y relacionales (.drawio / .png)
+│   ├── esquema-relacional.md      # Esquema relacional con políticas de FK
+│   └── Questly_Entrega1.pdf       # PDF entrega (no modificar)
+├── diagramas/                     # Copias visibles del PDF, fuente en docs/*.pdf
+│   ├── eer-chen.png
+│   ├── esquema-relacional.png
+│   ├── especializacion-usuario.png
+│   └── README.md                  # Fuente y desfase conocido vs docs/
 └── migraciones/                   # Scripts SQL numerados (desde Entrega 2)
 ```
 
