@@ -17,7 +17,7 @@ Plataforma de seguimiento de hábitos, tareas y objetivos personales o grupales 
 **Repositorio:** https://github.com/Brimx/Questly  
 **Entrega actual:** tag `entrega-1`
 
-> Nota: el PDF original se titula *Goshi*; *Questly* es el nombre actual del mismo sistema.
+>  *Questly* es el nombre actual del mismo sistema.
 
 ## Estructura del repositorio
 
