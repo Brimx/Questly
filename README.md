@@ -7,7 +7,7 @@ Plataforma de seguimiento de hábitos, tareas y objetivos personales o grupales 
 | Nombre             | GitHub   |
 |--------------------|----------|
 | Santiago Montenegro | @Brimx  |
-| Juan Tamayo        | —        |
+| Juan Tamayo         | @juantamayocordoba |
 | Cristian Pérez     | —        |
 | María Mercedes     | —        |
 
