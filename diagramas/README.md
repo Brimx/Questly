@@ -8,7 +8,6 @@ visibles para que el diagrama exista también en el repositorio
 | Archivo | Contenido | Página PDF |
 |---|---|---|
 | `eer-chen.png` | EER notación Chen (8 entidades) | p.3 |
-| `esquema-relacional.png` | Esquema relacional pata de gallo | p.3 |
 | `especializacion-usuario.png` | Especialización Usuario Individual/Grupo | p.4 |
 
 ## Desfase conocido vs `docs/*.md` (para Entrega 2)
