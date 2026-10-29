@@ -24,15 +24,12 @@ Plataforma de seguimiento de hábitos, tareas y objetivos personales o grupales 
 ```
 questly/
 ├── docs/
-│   ├── planteamiento.md           # Descripción del dominio y problema
-│   ├── requisitos-y-supuestos.md  # Requisitos funcionales e interrogatorio
-│   ├── diccionario-de-datos.md    # Diccionario inicial tabla por tabla
-│   ├── esquema-relacional.md      # Esquema relacional con políticas de FK
-│   └── Questly_Entrega1.pdf       # PDF entrega (no modificar)
+│   ├── Planteamiento.md           # Descripción del dominio y problema
+│   ├── Requisitos-y-Supuestos.md  # Requisitos funcionales e interrogatorio
+│   ├── Esquema-Relacional-Questly.md      # Esquema relacional con políticas de FK
+│   └── Questly-Presentacion.pdf       # PDF entrega
 ├── diagramas/                     # Copias visibles del PDF, fuente en docs/*.pdf
-│   ├── eer-chen.png
-│   ├── esquema-relacional.png
-│   ├── especializacion-usuario.png
+│   ├── Diagrama-EER-Chen.png
 │   └── README.md                  # Fuente y desfase conocido vs docs/
 └── migraciones/                   # Scripts SQL numerados (desde Entrega 2)
 ```
@@ -41,6 +38,6 @@ questly/
 
 | Tag | Contenido |
 |-----|-----------|
-| `entrega-1` | Planteamiento, EER, esquema relacional y diccionario de datos |
-| `entrega-2` | Implementación SQL, consultas y normalización *(pendiente)* |
-| `entrega-final` | Sistema completo con funciones, triggers y seguridad *(pendiente)* |
+| `entrega-1` | Planteamiento, EER y esquema relacional |
+| `entrega-2` | Implementación SQL, consultas y normalización |
+| `entrega-final` | Sistema completo con funciones, triggers y seguridad |
