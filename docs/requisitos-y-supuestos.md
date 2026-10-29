@@ -10,8 +10,7 @@
 6. Registrar y mostrar recompensas obtenidas al acumular puntos de experiencia.
 7. Permitir consultar el historial de progreso y estado de ánimo de cada usuario.
 8. Generar reportes del nivel de cumplimiento de hábitos en un período determinado.
-9. Permitir que los usuarios se organicen en grupos y colaboren en misiones compartidas.
-10. Configurar recordatorios asociados a hábitos o tareas.
+9. Configurar recordatorios asociados a hábitos o tareas.
 
 ## Supuestos y decisiones de diseño
 
@@ -29,17 +28,7 @@ Las siguientes ambigüedades fueron identificadas durante el análisis del domin
 
 ---
 
-### S2 — Pertenencia de usuarios a grupos
-
-**Ambigüedad:** ¿Puede un usuario pertenecer a más de un grupo simultáneamente?
-
-**Decisión:** Sí. Un usuario puede ser miembro de múltiples grupos al mismo tiempo. Por ejemplo, un usuario puede pertenecer a un grupo de hábitos de ejercicio y a otro de lectura en paralelo.
-
-**Implicación en diseño:** La relación entre `Usuario` y `Grupo` es N:M. Se requiere una tabla intermedia `Usuario_Grupo_Membresia` que registre qué usuario pertenece a qué grupo, incluyendo su rol (líder o miembro) y la fecha de ingreso.
-
----
-
-### S3 — Naturaleza del registro de ánimo
+### S2 — Naturaleza del registro de ánimo
 
 **Ambigüedad:** ¿El campo `estado_actual` de la entidad `Animo` representa el estado presente del usuario o un historial de registros?
 
@@ -49,7 +38,7 @@ Las siguientes ambigüedades fueron identificadas durante el análisis del domin
 
 ---
 
-### S4 — Cálculo de estadísticas
+### S3 — Cálculo de estadísticas
 
 **Ambigüedad:** ¿Los valores de `total_completado`, `porcentaje_cumplido` y `racha_actual` se almacenan como datos fijos o se calculan en tiempo real?
 
@@ -59,7 +48,7 @@ Las siguientes ambigüedades fueron identificadas durante el análisis del domin
 
 ---
 
-### S5 — Independencia de las metas
+### S4 — Independencia de las metas
 
 **Ambigüedad:** ¿Una meta debe estar obligatoriamente ligada a un hábito específico?
 
@@ -69,7 +58,7 @@ Las siguientes ambigüedades fueron identificadas durante el análisis del domin
 
 ---
 
-### S6 — Origen de las habilidades
+### S5 — Origen de las habilidades
 
 **Ambigüedad:** ¿Las habilidades son exclusivamente predefinidas por el sistema o también las puede crear el usuario?
 
@@ -79,10 +68,9 @@ Las siguientes ambigüedades fueron identificadas durante el análisis del domin
 
 ---
 
-## Decisiones pendientes (Entrega 2)
+## Decisiones pendientes
 
 Las siguientes ambigüedades no tienen suficiente información aún para decidir y se resolverán en la siguiente entrega:
 
 - **Recompensas:** ¿Cómo se registra que un usuario obtiene una recompensa? ¿Existe una tabla intermedia `Usuario_Recompensa`?
 - **Recordatorios:** ¿Qué política de borrado aplica cuando se elimina el hábito asociado a un recordatorio?
-- **Roles en grupo:** ¿Qué permisos específicos tiene un líder de grupo frente a un miembro regular?
