@@ -2,7 +2,7 @@
 
 ## Descripción de la organización
 
-Questly es un sistema diseñado por un grupo de estudiantes de Ingeniería de Sistemas de la Universidad Popular del Cesar (Valledupar, Cesar). El sistema busca ayudar a personas individuales y grupos a organizar y hacer seguimiento de sus hábitos, tareas y objetivos personales mediante el uso de mecánicas de gamificación.
+Questly es un sistema diseñado por un grupo de estudiantes de Ingeniería de Sistemas de la Universidad Popular del Cesar (Valledupar, Cesar). El sistema busca ayudar a personas individuales a organizar y hacer seguimiento de sus hábitos, tareas y objetivos personales mediante el uso de mecánicas de gamificación.
 
 ## Situación actual
 
@@ -33,4 +33,4 @@ Las personas tienen dificultades para mantener hábitos constantes porque las he
 
 ## Solución propuesta
 
-Questly centraliza la gestión de hábitos y el seguimiento del progreso en una sola plataforma. Incorpora elementos de gamificación —puntos de experiencia, niveles, misiones y recompensas— inspirados en juegos RPG para convertir el progreso personal en una experiencia motivadora. El sistema permite uso individual y grupal, fomentando la colaboración y el apoyo entre participantes.
+Questly centraliza la gestión de hábitos y el seguimiento del progreso en una sola plataforma. Incorpora elementos de gamificación —puntos de experiencia, niveles, misiones y recompensas— inspirados en juegos RPG para convertir el progreso personal en una experiencia motivadora. El sistema permite un uso individual, fomentando la disciplina y el autodesarrollo en cada uno de sus participantes.
