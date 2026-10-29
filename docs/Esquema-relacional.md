@@ -66,14 +66,6 @@ Sin claves foráneas. Las recompensas son entidades globales del sistema.
 
 ---
 
-### Grupo (**Id_grupo**, nombre_grupo, descripcion, fecha_creacion, *Id_usuario_lider*)
-
-| FK | Referencia | Política de borrado | Justificación |
-|---|---|---|---|
-| *Id_usuario_lider* | Usuario_persona | `SET NULL` | Si el líder abandona o es eliminado, el grupo no desaparece; queda sin líder hasta que se asigne uno nuevo. |
-
----
-
 ### Usuario_Habilidad (**Id_usuario**, **Id_habilidad**, fecha_obtenida)
 
 Tabla intermedia N:M entre Usuario_persona y Habilidad.
@@ -82,17 +74,6 @@ Tabla intermedia N:M entre Usuario_persona y Habilidad.
 |---|---|---|---|
 | *Id_usuario* | Usuario_persona | `CASCADE` | Si el usuario se elimina, sus habilidades desbloqueadas desaparecen con él. |
 | *Id_habilidad* | Habilidad | `CASCADE` | Si el sistema retira una habilidad, también se elimina de los usuarios que la tenían. |
-
----
-
-### Usuario_Grupo_Membresia (**Id_usuario**, **Id_grupo**, rol_en_grupo, fecha_ingreso)
-
-Tabla intermedia N:M entre Usuario_persona y Grupo.
-
-| FK | Referencia | Política de borrado | Justificación |
-|---|---|---|---|
-| *Id_usuario* | Usuario_persona | `CASCADE` | Si el usuario se elimina, su membresía en todos los grupos desaparece. |
-| *Id_grupo* | Grupo | `CASCADE` | Si el grupo se elimina, sus membresías dejan de existir. |
 
 ---
 
