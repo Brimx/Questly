@@ -6,10 +6,10 @@ Plataforma de seguimiento de hábitos, tareas y objetivos personales o grupales 
 
 | Nombre             | GitHub   |
 |--------------------|----------|
-| Santiago Montenegro | @Brimx  |
-| Juan Tamayo         | @juantamayocordoba |
-| Cristian Pérez     | —        |
-| María Mercedes     | —        |
+| Santiago Montenegro Muñoz | @Brimx  |
+| Juan Tamayo Cordoba       | @juantamayocordoba |
+| Cristian Andres Pérez     | —        |
+| María Romero Fuentes      | —        |
 
 **Institución:** Universidad Popular del Cesar · Facultad de Ingenierías y Tecnológicas  
 **Asignatura:** Base de Datos I · Semestre 2026  
