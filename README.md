@@ -2,7 +2,7 @@
 
 Questly permite dar seguimiento a hábitos, tareas y metas con mecánicas de progreso y recompensas. Proyecto académico para Base de Datos I, PostgreSQL 16+.
 
-**Entrega actual:** preparación de Entrega 2; la etiqueta de Git se crea después de validar el contenido final.
+**Entrega actual:** Entrega 2 — Implementación (etiqueta `entrega-2`).
 
 ## Estructura
 
