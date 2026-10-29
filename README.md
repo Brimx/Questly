@@ -15,7 +15,7 @@ Plataforma de seguimiento de hábitos, tareas y objetivos personales o grupales 
 **Asignatura:** Base de Datos I · Semestre 2026  
 **Motor:** PostgreSQL 16+  
 **Repositorio:** https://github.com/Brimx/Questly  
-**Entrega actual:** tag `entrega-1`
+**Entrega actual:** tag `entrega-2`
 
 >  *Questly* es el nombre actual del mismo sistema.
 
@@ -31,7 +31,8 @@ questly/
 ├── diagramas/                     # Copias visibles del PDF, fuente en docs/*.pdf
 │   ├── Diagrama-EER-Chen.png
 │   └── README.md                  # Fuente y desfase conocido vs docs/
-└── migraciones/                   # Scripts SQL numerados (desde Entrega 2)
+└── migraciones/                   # Scripts SQL numerados
+│   └── Questly-1er-Entrega.sql    # Primer avance de la Base de datos de Questly
 ```
 
 ## Etiquetas de entrega
