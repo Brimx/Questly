@@ -31,8 +31,6 @@ questly/
 ├── diagramas/                     # Copias visibles del PDF, fuente en docs/*.pdf
 │   ├── Diagrama-EER-Chen.png
 │   └── README.md                  # Fuente y desfase conocido vs docs/
-├── scripts/                     # scripts en sql del proyecto
-│   └── Questly-1er-Entrega.sql      # Primer avance del proyecto
 └── migraciones/                   # Scripts SQL numerados (desde Entrega 2)
 ```
 
