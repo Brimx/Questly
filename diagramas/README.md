@@ -7,15 +7,13 @@ visibles para que el diagrama exista también en el repositorio
 
 | Archivo | Contenido | Página PDF |
 |---|---|---|
-| `eer-chen.png` | EER notación Chen (8 entidades) | p.3 |
-| `especializacion-usuario.png` | Especialización Usuario Individual/Grupo | p.4 |
+| `Diagrama-EER-Chen.png` | EER notación Chen (8 entidades) | p.3 |
 
 ## Desfase conocido vs `docs/*.md` (para Entrega 2)
 
-1. Falta `Grupo` y las intermedias `Usuario_Habilidad`, `Usuario_Grupo_Membresia` en el dibujo (el .md ya las define).
-2. Faltan `Animo.fecha_registro` (S3) y `Habilidad.tipo_origen` (S6) en el dibujo.
-3. `Meta.Id_habito` debe marcarse opcional (S5).
-4. Especialización de Usuario sin justificación: definir si se implementa o se descarta.
-5. `Recordatorio`: definir política de borrado (hoy pendiente).
+1. Faltan `Animo.fecha_registro` (S3) y `Habilidad.tipo_origen` (S6) en el dibujo.
+2. `Meta.Id_habito` debe marcarse opcional (S5).
+3. Especialización de Usuario sin justificación: definir si se implementa o se descarta.
+4. `Recordatorio`: definir política de borrado (hoy pendiente).
 
-Ver detalle en `docs/esquema-relacional.md` § Observaciones y `docs/requisitos-y-supuestos.md`.
+Ver detalle en `docs/Esquema-Relacional-Questly.md` § Observaciones y `docs/Requisitos-y-Supuestos.md`.
