@@ -1,0 +1,45 @@
+%% Questly — recompensas y obtenciones, estructura Chen.
+%% Usuario_Recompensa es la tabla de implementación de la relación N:M obtiene.
+%% Atributos con cápsula por limitación de Mermaid; usar óvalo en el editor para Chen estricto.
+flowchart LR
+  U["Usuario_persona"]
+  H["Habito_tarea"]
+  R["Recompensa"]
+
+  U ---|"0..N"| O{obtiene}
+  O ---|"0..N"| R
+  H ---|"0..N"| AR{asocia}
+  AR ---|"0..1"| R
+  O --- O_fecha(["fecha_obtencion"])
+
+  U --- U_id(["<u>id_usuario</u>"])
+  U --- U_correo(["correo (UQ)"])
+  U --- U_nombre(["nombre"])
+  U --- U_rol(["rol"])
+  U --- U_fn(["fecha_nacimiento"])
+  U --- U_desc(["descripcion_tu"])
+  U --- U_px(["puntos_experiencia"])
+  U --- U_nivel(["nivel"])
+
+  H --- H_id(["<u>id_habito</u>"])
+  H --- H_nombre(["nombre"])
+  H --- H_imp(["nivel_importancia"])
+  H --- H_tiempo(["tiempo_invertido"])
+  H --- H_inicio(["fecha_inicio"])
+  H --- H_final(["fecha_final"])
+  H --- H_freq(["frecuencia"])
+
+  R --- R_id(["<u>id_recompensa</u>"])
+  R --- R_nombre(["nombre (UQ)"])
+  R --- R_desc(["descripcion"])
+  R --- R_puntos(["puntos_necesarios"])
+
+  class U,H,R entity
+  class O,AR relation
+  class U_id,U_correo,U_nombre,U_rol,U_fn,U_desc,U_px,U_nivel attribute
+  class H_id,H_nombre,H_imp,H_tiempo,H_inicio,H_final,H_freq attribute
+  class O_fecha,R_id,R_nombre,R_desc,R_puntos attribute
+
+  classDef entity fill:#f8fafc,stroke:#172033,stroke-width:2px,color:#172033
+  classDef relation fill:#fff7ed,stroke:#172033,stroke-width:2px,color:#172033
+  classDef attribute fill:#ffffff,stroke:#334155,stroke-width:1.5px,color:#172033

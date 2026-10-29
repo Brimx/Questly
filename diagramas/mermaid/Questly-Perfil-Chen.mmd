@@ -1,0 +1,40 @@
+%% Questly — perfil, ánimo y habilidades, estructura Chen.
+%% Atributos con forma cápsula por limitación del renderizador Mermaid; se pueden cambiar a óvalos en el editor.
+flowchart LR
+  U["Usuario_persona"]
+  A["Animo"]
+  SK["Habilidad"]
+
+  U ---|"0..N"| RA{registra}
+  RA ---|"1..1"| A
+  U ---|"0..N"| D{desarrolla}
+  D ---|"1..1"| SK
+
+  U --- U_id(["<u>id_usuario</u>"])
+  U --- U_correo(["correo (UQ)"])
+  U --- U_nombre(["nombre"])
+  U --- U_rol(["rol"])
+  U --- U_fn(["fecha_nacimiento"])
+  U --- U_desc(["descripcion_tu"])
+  U --- U_px(["puntos_experiencia"])
+  U --- U_nivel(["nivel"])
+
+  A --- A_id(["<u>id_animo</u>"])
+  A --- A_estado(["estado_actual"])
+  A --- A_com(["comentario"])
+  A --- A_fecha(["fecha_registro TIMESTAMP"])
+
+  SK --- SK_id(["<u>id_habilidad</u>"])
+  SK --- SK_nombre(["nombre_habilidad"])
+  SK --- SK_desc(["descripcion"])
+  SK --- SK_nivel(["nivel_habilidad"])
+  SK --- SK_origen(["tipo_origen"])
+
+  class U,A,SK entity
+  class RA,D relation
+  class U_id,U_correo,U_nombre,U_rol,U_fn,U_desc,U_px,U_nivel attribute
+  class A_id,A_estado,A_com,A_fecha,SK_id,SK_nombre,SK_desc,SK_nivel,SK_origen attribute
+
+  classDef entity fill:#f8fafc,stroke:#172033,stroke-width:2px,color:#172033
+  classDef relation fill:#fff7ed,stroke:#172033,stroke-width:2px,color:#172033
+  classDef attribute fill:#ffffff,stroke:#334155,stroke-width:1.5px,color:#172033

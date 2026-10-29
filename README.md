@@ -1,44 +1,29 @@
-# Questly — Sistema de Progreso y Gestión de Hábitos
+# Questly — Sistema de progreso y gestión de hábitos
 
-Plataforma de seguimiento de hábitos, tareas y objetivos personales o grupales con mecánicas de gamificación (niveles, experiencia, misiones, recompensas). Inspirada en juegos RPG para mantener la motivación del usuario.
+Questly permite dar seguimiento a hábitos, tareas y metas con mecánicas de progreso y recompensas. Proyecto académico para Base de Datos I, PostgreSQL 16+.
 
-## Integrantes
+**Entrega actual:** preparación de Entrega 2; la etiqueta de Git se crea después de validar el contenido final.
 
-| Nombre             | GitHub   |
-|--------------------|----------|
-| Santiago Montenegro Muñoz | @Brimx  |
-| Juan Tamayo Cordoba       | @juantamayocordoba |
-| Cristian Andres Pérez     | —        |
-| María Romero Fuentes      | —        |
+## Estructura
 
-**Institución:** Universidad Popular del Cesar · Facultad de Ingenierías y Tecnológicas  
-**Asignatura:** Base de Datos I · Semestre 2026  
-**Motor:** PostgreSQL 16+  
-**Repositorio:** https://github.com/Brimx/Questly  
-**Entrega actual:** tag `entrega-2`
+- `docs/Planteamiento.md`: descripción del dominio y problema.
+- `docs/Requisitos-y-Supuestos.md`: requisitos y decisiones de diseño.
+- `docs/Esquema-Relacional-Questly.md`: relaciones, claves, restricciones y correspondencia con el EER.
+- `docs/Normalizacion-y-Dependencias.md`: auditoría de normalización.
+- `docs/Evidencia-Indices.md`: índices y mediciones de consultas.
+- `docs/historico/`: fuentes de Entrega 1 conservadas como referencia; no ejecutar.
+- `diagramas/Questly-EER-Chen.png` y cuatro subdiagramas: EER y detalles por dominio, exclusivamente en notación Chen. Las fuentes editables Mermaid están en `diagramas/mermaid/`. Véase `diagramas/README.md`.
+- `migraciones/001_esquema_questly.sql`: crea el esquema en una base vacía.
+- `migraciones/002_datos_semilla.sql`: carga datos de demostración.
+- `consultas/001_consultas_negocio.sql`: consultas de ejemplo.
 
->  *Questly* es el nombre actual del mismo sistema.
+## Instalación local
 
-## Estructura del repositorio
+Ejecutar en orden sobre una base PostgreSQL vacía:
 
-```
-questly/
-├── docs/
-│   ├── Planteamiento.md           # Descripción del dominio y problema
-│   ├── Requisitos-y-Supuestos.md  # Requisitos funcionales e interrogatorio
-│   ├── Esquema-Relacional-Questly.md      # Esquema relacional con políticas de FK
-│   └── Questly-Presentacion.pdf       # PDF entrega
-├── diagramas/                     # Copias visibles del PDF, fuente en docs/*.pdf
-│   ├── Diagrama-EER-Chen.png
-│   └── README.md                  # Fuente y desfase conocido vs docs/
-└── migraciones/                   # Scripts SQL numerados
-│   └── Questly-1er-Entrega.sql    # Primer avance de la Base de datos de Questly
+```sh
+psql -d questly -f migraciones/001_esquema_questly.sql
+psql -d questly -f migraciones/002_datos_semilla.sql
 ```
 
-## Etiquetas de entrega
-
-| Tag | Contenido |
-|-----|-----------|
-| `entrega-1` | Planteamiento, EER y esquema relacional |
-| `entrega-2` | Implementación SQL, consultas y normalización |
-| `entrega-final` | Sistema completo con funciones, triggers y seguridad |
+Las consultas de negocio se ejecutan aparte. No ejecutar los SQL archivados en `docs/historico/`.

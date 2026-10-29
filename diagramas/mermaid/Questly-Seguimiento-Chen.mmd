@@ -1,0 +1,34 @@
+%% Questly — seguimiento de hábitos y estadísticas, estructura Chen.
+%% estadistica_habito es una vista: las tres métricas se indican como atributos derivados (línea discontinua).
+%% Las cápsulas de Mermaid deben convertirse a óvalos si el editor lo permite.
+flowchart LR
+  H["Habito_tarea"]
+  C["Cumplimiento"]
+
+  H ---|"0..N"| RC{registra}
+  RC ---|"1..1"| C
+
+  H --- H_id(["<u>id_habito</u>"])
+  H --- H_nombre(["nombre"])
+  H --- H_imp(["nivel_importancia"])
+  H --- H_tiempo(["tiempo_invertido"])
+  H --- H_inicio(["fecha_inicio"])
+  H --- H_final(["fecha_final"])
+  H --- H_freq(["frecuencia"])
+
+  C --- C_id(["<u>id_cumplimiento</u>"])
+  C --- C_fecha(["fecha_cumplimiento"])
+
+  H --- S_total(["total_completado (derivado)"])
+  H --- S_pct(["porcentaje_cumplido (derivado)"])
+  H --- S_racha(["racha_actual (derivado)"])
+
+  class H,C entity
+  class RC relation
+  class H_id,H_nombre,H_imp,H_tiempo,H_inicio,H_final,H_freq,C_id,C_fecha attribute
+  class S_total,S_pct,S_racha derived
+
+  classDef entity fill:#f8fafc,stroke:#172033,stroke-width:2px,color:#172033
+  classDef relation fill:#fff7ed,stroke:#172033,stroke-width:2px,color:#172033
+  classDef attribute fill:#ffffff,stroke:#334155,stroke-width:1.5px,color:#172033
+  classDef derived fill:#ffffff,stroke:#334155,stroke-width:1.5px,stroke-dasharray:5 5,color:#172033

@@ -44,7 +44,7 @@ Las siguientes ambigüedades fueron identificadas durante el análisis del domin
 
 **Decisión:** Las estadísticas se calculan de forma dinámica a partir de los registros de cumplimiento existentes en el sistema. No se almacenan como valores estáticos que requieran actualización manual. En la implementación se materializarán como consultas o vistas calculadas.
 
-**Implicación en diseño:** La tabla `Estadistica` es conceptual en esta entrega. Su estructura de implementación definitiva (tabla actualizable vs. vista calculada) se definirá en la Entrega 2.
+**Decisión de implementación:** Se almacenan los eventos en `Cumplimiento`; `estadistica_habito` es una vista calculada, no una tabla editable. Resume cada hábito desde su primer período hasta el período actual (o su fecha final): frecuencia diaria por día calendario, semanal por semana ISO (lunes a domingo) y mensual por mes calendario. El porcentaje es períodos completados / períodos esperados. La racha cuenta períodos consecutivos completados hasta el último período esperado.
 
 ---
 
@@ -64,13 +64,18 @@ Las siguientes ambigüedades fueron identificadas durante el análisis del domin
 
 **Decisión:** Las habilidades pueden tener dos orígenes: el sistema (habilidades predefinidas que se desbloquean automáticamente, como en un RPG) o el propio usuario (habilidades personalizadas que el usuario define según sus intereses).
 
-**Implicación en diseño:** La entidad `Habilidad` debe incluir el atributo `tipo_origen` (VARCHAR: 'sistema' | 'usuario') para distinguir ambos casos.
+**Decisión de implementación:** `Habilidad` incluye `tipo_origen` (`sistema` | `usuario`) y siempre pertenece a un usuario, que es quien tiene el progreso de esa habilidad. El origen distingue una habilidad predefinida por el sistema de una personalizada por el usuario.
 
 ---
 
-## Decisiones pendientes
+### S6 — Especialización de usuarios
 
-Las siguientes ambigüedades no tienen suficiente información aún para decidir y se resolverán en la siguiente entrega:
+**Decisión:** No se modelan `Alumno` ni otros subtipos de usuario. Los roles se guardan en `Usuario_persona.rol`; no hay atributos exclusivos por subtipo que justifiquen una especialización.
 
-- **Recompensas:** ¿Cómo se registra que un usuario obtiene una recompensa? ¿Existe una tabla intermedia `Usuario_Recompensa`?
-- **Recordatorios:** ¿Qué política de borrado aplica cuando se elimina el hábito asociado a un recordatorio?
+### S7 — Borrado de recordatorios
+
+**Decisión:** Si se elimina un hábito, se eliminan sus recordatorios (`ON DELETE CASCADE`), porque no tienen sentido sin el hábito asociado.
+
+### S8 — Recompensas obtenidas
+
+**Decisión:** `Usuario_Recompensa` registra la fecha en que cada usuario obtiene una recompensa. La clave compuesta `(usuario_id, recompensa_id)` limita a una obtención por usuario y recompensa. La recompensa no se puede borrar si ya fue otorgada (`ON DELETE RESTRICT`).

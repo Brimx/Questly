@@ -1,0 +1,51 @@
+%% Questly — usuarios, hábitos y planificación, estructura Chen.
+%% Entidad = rectángulo; relación = rombo; atributo = cápsula por limitación de Mermaid (ajustar a óvalo en el editor si se requiere Chen estricto).
+flowchart LR
+  U["Usuario_persona"]
+  H["Habito_tarea"]
+  M["Meta"]
+  RM["Recordatorio"]
+
+  U ---|"0..N"| T{tiene}
+  T ---|"1..1"| H
+  H ---|"0..N"| DM{define}
+  DM ---|"0..1"| M
+  H ---|"0..N"| CF{configura}
+  CF ---|"1..1"| RM
+
+  U --- U_id(["<u>id_usuario</u>"])
+  U --- U_correo(["correo (UQ)"])
+  U --- U_nombre(["nombre"])
+  U --- U_rol(["rol"])
+  U --- U_fn(["fecha_nacimiento"])
+  U --- U_desc(["descripcion_tu"])
+  U --- U_px(["puntos_experiencia"])
+  U --- U_nivel(["nivel"])
+
+  H --- H_id(["<u>id_habito</u>"])
+  H --- H_nombre(["nombre"])
+  H --- H_imp(["nivel_importancia"])
+  H --- H_tiempo(["tiempo_invertido"])
+  H --- H_inicio(["fecha_inicio"])
+  H --- H_final(["fecha_final"])
+  H --- H_freq(["frecuencia"])
+
+  M --- M_id(["<u>id_meta</u>"])
+  M --- M_desc(["descripcion"])
+  M --- M_obj(["valor_objetivo"])
+  M --- M_limite(["fecha_limite"])
+
+  RM --- RM_id(["<u>id_recordatorio</u>"])
+  RM --- RM_hora(["fecha_hora"])
+  RM --- RM_msg(["mensaje"])
+  RM --- RM_rep(["repeticion"])
+
+  class U,H,M,RM entity
+  class T,DM,CF relation
+  class U_id,U_correo,U_nombre,U_rol,U_fn,U_desc,U_px,U_nivel attribute
+  class H_id,H_nombre,H_imp,H_tiempo,H_inicio,H_final,H_freq attribute
+  class M_id,M_desc,M_obj,M_limite,RM_id,RM_hora,RM_msg,RM_rep attribute
+
+  classDef entity fill:#f8fafc,stroke:#172033,stroke-width:2px,color:#172033
+  classDef relation fill:#fff7ed,stroke:#172033,stroke-width:2px,color:#172033
+  classDef attribute fill:#ffffff,stroke:#334155,stroke-width:1.5px,color:#172033

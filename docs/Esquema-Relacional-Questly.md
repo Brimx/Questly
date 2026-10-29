@@ -1,84 +1,84 @@
 # Esquema relacional — Questly
 
-Convenciones: atributos de **clave primaria en negrita**, *clave foránea en cursiva*.  
-Las políticas de borrado se documentan con su justificación.
+Esquema implementado por `migraciones/001_esquema_questly.sql`. Las tablas almacenan hechos del dominio; `estadistica_habito` es una vista calculada.
 
----
+Convenciones: **negrita** = clave primaria; *cursiva* = clave foránea; `?` = nullable.
 
 ## Relaciones
 
-### Usuario_persona (**Id_usuario**, correo, nombre, rol, fecha_nacimiento, descripcion_tu, puntos_experiencia, nivel)
+### Usuario_persona
+`Usuario_persona(**id_usuario**, correo, nombre, rol, fecha_nacimiento?, descripcion_tu?, puntos_experiencia, nivel)`
 
----
+- `correo` es único.
+- `rol` ∈ {`aprendiz`, `maestro`, `experto`}.
+- `puntos_experiencia >= 0`; `nivel >= 1`.
+- No hay subtipos de usuario: los roles son un atributo.
 
-### Habito_tarea (**Id_habito**, nombre, nivel_importancia, tiempo_invertido, fecha_inicio, fecha_final, frecuencia, *Id_usuario*)
+### Habito_tarea
+`Habito_tarea(**id_habito**, nombre, nivel_importancia, tiempo_invertido?, fecha_inicio, fecha_final?, frecuencia, *usuario_id*)`
 
-| FK | Referencia | Política de borrado | Justificación |
-|---|---|---|---|
-| *Id_usuario* | Usuario_persona | `CASCADE` | Un hábito no tiene razón de existir sin su usuario. Se elimina junto con él. |
+- `usuario_id → Usuario_persona.id_usuario`, `NOT NULL`, `ON DELETE CASCADE`.
+- `nivel_importancia` ∈ {`alta`, `media`, `baja`}; `frecuencia` ∈ {`diaria`, `semanal`, `mensual`}.
+- `tiempo_invertido` es nulo o positivo; `fecha_final` es nula o no anterior a `fecha_inicio`.
 
----
+### Meta
+`Meta(**id_meta**, descripcion, valor_objetivo, fecha_limite?, *habito_id?*)`
 
-### Animo (**Id_animo**, estado_actual, comentario, fecha_registro, *Id_usuario*)
+- `habito_id → Habito_tarea.id_habito`, nullable, `ON DELETE SET NULL`: una meta puede ser independiente y sobrevive al borrado del hábito.
+- `valor_objetivo > 0`.
 
-> ⚠️ `fecha_registro` debe agregarse al EER (ver Supuesto S3).
+### Recompensa
+`Recompensa(**id_recompensa**, nombre, descripcion?, puntos_necesarios, *habito_id?*)`
 
-| FK | Referencia | Política de borrado | Justificación |
-|---|---|---|---|
-| *Id_usuario* | Usuario_persona | `CASCADE` | El historial de ánimo pertenece al usuario; sin él carece de contexto. |
+- `nombre` es único; `puntos_necesarios > 0`.
+- `habito_id → Habito_tarea.id_habito`, nullable, `ON DELETE SET NULL`: una recompensa puede ser global y no se pierde si se borra el hábito relacionado.
 
----
+### Usuario_Recompensa
+`Usuario_Recompensa(**_*usuario_id*_**, **_*recompensa_id*_**, fecha_obtencion)`
 
-### Recordatorio (**Id_recordatorio**, fecha_hora, mensaje, repeticion, *Id_habito*)
+- PK compuesta: `(usuario_id, recompensa_id)`; cada usuario puede obtener una vez cada recompensa.
+- `usuario_id → Usuario_persona.id_usuario`, `ON DELETE CASCADE`.
+- `recompensa_id → Recompensa.id_recompensa`, `ON DELETE RESTRICT` para conservar el historial de recompensas otorgadas.
 
-| FK | Referencia | Política de borrado | Justificación |
-|---|---|---|---|
-| *Id_habito* | Habito_tarea | `CASCADE` | Un recordatorio solo tiene sentido asociado a su hábito (`Id_habito` es obligatorio). Se elimina junto con él. |
+### Recordatorio
+`Recordatorio(**id_recordatorio**, fecha_hora, mensaje, repeticion, *habito_id*)`
 
----
+- `habito_id → Habito_tarea.id_habito`, `NOT NULL`, `ON DELETE CASCADE`.
+- `repeticion` ∈ {`única`, `diaria`, `semanal`, `mensual`}.
 
-### Meta (**Id_meta**, descripcion, valor_objetivo, fecha_limite, *Id_habito*)
+### Habilidad
+`Habilidad(**id_habilidad**, nombre_habilidad, descripcion?, nivel_habilidad, tipo_origen, *usuario_id*)`
 
-| FK | Referencia | Política de borrado | Justificación |
-|---|---|---|---|
-| *Id_habito* | Habito_tarea | `CASCADE` | La meta se define sobre un hábito (`Id_habito` es obligatorio); si el hábito se elimina, la meta pierde su objeto y se elimina con él. |
+- `usuario_id → Usuario_persona.id_usuario`, `NOT NULL`, `ON DELETE CASCADE`.
+- `UNIQUE (nombre_habilidad, usuario_id)`.
+- `nivel_habilidad` ∈ [1, 10]; `tipo_origen` ∈ {`sistema`, `usuario`}.
 
----
+### Animo
+`Animo(**id_animo**, estado_actual, comentario?, fecha_registro, *usuario_id*)`
 
-### Estadistica (**Id_estadistica**, total_completado, porcentaje_cumplido, racha_actual, fecha_inicio_periodo, fecha_fin_periodo, *Id_usuario*)
+- `usuario_id → Usuario_persona.id_usuario`, `NOT NULL`, `ON DELETE CASCADE`.
+- `fecha_registro` es `TIMESTAMP NOT NULL` para conservar la hora del registro.
+- `estado_actual` ∈ {`excelente`, `bien`, `normal`, `triste`, `estresado`}.
 
-| FK | Referencia | Política de borrado | Justificación |
-|---|---|---|---|
-| *Id_usuario* | Usuario_persona | `CASCADE` | Las estadísticas describen el desempeño de un usuario en un periodo; sin el usuario carecen de sentido. |
+### Cumplimiento
+`Cumplimiento(**id_cumplimiento**, fecha_cumplimiento, *habito_id*)`
 
----
+- `habito_id → Habito_tarea.id_habito`, `NOT NULL`, `ON DELETE CASCADE`.
+- `UNIQUE (habito_id, fecha_cumplimiento)` evita registrar dos cumplimientos del mismo hábito en un día.
 
-### Habilidad (**Id_habilidad**, nombre_habilidad, descripcion, nivel_habilidad, *Id_usuario*)
+## Vista calculada
 
-Un mismo usuario no puede tener dos habilidades con el mismo `nombre_habilidad` (`UNIQUE (nombre_habilidad, Id_usuario)`).
+`estadistica_habito(id_habito, usuario_id, total_completado, porcentaje_cumplido, racha_actual)` resume cada hábito desde su inicio hasta el período actual o su fecha final. No se insertan estadísticas manualmente: la vista calcula los valores desde `Cumplimiento`.
 
-| FK | Referencia | Política de borrado | Justificación |
-|---|---|---|---|
-| *Id_usuario* | Usuario_persona | `CASCADE` | La habilidad pertenece al usuario que la desarrolla; sin él carece de dueño. |
+- Frecuencia diaria: períodos por día calendario.
+- Frecuencia semanal: semanas ISO, de lunes a domingo.
+- Frecuencia mensual: meses calendario.
+- El porcentaje es períodos completados / períodos esperados × 100. La racha cuenta períodos consecutivos completados hasta el último período esperado.
 
----
+## Índices de claves foráneas
 
-### Recompensa (**Id_recompensa**, nombre, descripcion, puntos_necesarios, *Id_habito*)
+PostgreSQL no crea índices automáticamente en el lado que referencia una FK. La migración agrega índices para las consultas previstas: hábitos por usuario; metas, recompensas y recordatorios por hábito; recompensas obtenidas por recompensa; habilidades por usuario; ánimo por usuario y fecha; y cumplimientos por fecha. Las claves primarias y `UNIQUE` ya crean sus propios índices. La evidencia de `EXPLAIN ANALYZE` está en [Evidencia-Indices.md](Evidencia-Indices.md).
 
-`Id_habito` es opcional (puede ser nulo): una recompensa puede ser global del sistema o estar ligada a un hábito.
+## Correspondencia con el EER Chen
 
-| FK | Referencia | Política de borrado | Justificación |
-|---|---|---|---|
-| *Id_habito* | Habito_tarea | `CASCADE` | Si la recompensa está ligada a un hábito y este se elimina, la recompensa se elimina con él. |
-
----
-
-## Observaciones sobre el EER
-
-Las siguientes correcciones deben reflejarse en el diagrama actualizado:
-
-1. **`Animo.fecha_registro`** — Atributo faltante. Necesario para el historial dinámico.
-2. **`Meta`** — Se asocia únicamente a `Habito_tarea` (`Id_habito` obligatorio); no tiene relación directa con `Usuario_persona`.
-3. **`Estadistica`** — Se asocia a `Usuario_persona` (no a `Habito_tarea`) e incluye `fecha_inicio_periodo` y `fecha_fin_periodo`.
-4. **`Habilidad`** — Se asocia directamente a `Usuario_persona` (`Id_usuario`); no hay tabla intermedia N:M ni atributo `tipo_origen`.
-5. **`Recompensa.Id_habito`** — Debe marcarse como atributo opcional (nullable) en el diagrama.
+El EER completo está en [`diagramas/Questly-EER-Chen.png`](../diagramas/Questly-EER-Chen.png) y usa exclusivamente notación Chen. Muestra las ocho entidades base y todas las relaciones. `Usuario_Recompensa` se representa conceptualmente como la relación N:M `obtiene`, con `fecha_obtencion` como atributo; en el esquema físico se implementa con una tabla asociativa y PK compuesta. `estadistica_habito` es una vista derivada, no una entidad almacenada. Se descarta la entidad `Alumno`; `rol` es un atributo de usuario. El EER general prioriza la estructura y las cardinalidades; los subdiagramas de perfil, usuarios/hábitos, seguimiento y recompensas detallan los atributos de cada área. El resto figura en este diccionario relacional.
